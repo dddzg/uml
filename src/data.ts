@@ -1,4 +1,4 @@
-interface InitData{
+interface MovieData{
     name: string
     director: string
     actor: string
@@ -7,4 +7,4 @@ interface InitData{
     type: string
     content: string
 }
-export {InitData}
+export {MovieData}

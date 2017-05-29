@@ -5,11 +5,15 @@ import './index.less';
 var injectTapEventPlugin = require("react-tap-event-plugin");
 injectTapEventPlugin();
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import { Provider} from 'mobx-react'
+import {AppState} from './AppState'
 
-
+const appState=new AppState()
 const Uml=()=>(
   <MuiThemeProvider>
-    <App/>
+    <Provider AppState={appState}>
+      <App/>
+    </Provider>
   </MuiThemeProvider>
 );
 

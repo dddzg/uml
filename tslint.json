@@ -9,7 +9,7 @@
         "curly": true,
         "eofline": false,
         "forin": true,
-        "indent": [ true, "spaces" ],
+        "indent": [ true, "tab" ],
         "interface-name": [true, "never-prefix"],
         "jsx-no-lambda": false,
         "jsx-no-multiline-js": false,
@@ -37,7 +37,7 @@
         "no-use-before-declare": false,
         "jsx-alignment":false,
         "one-line": [
-            true,
+            false,
             "check-catch",
             "check-else",
             "check-open-brace",

@@ -4,23 +4,41 @@ import AppBar from 'material-ui/AppBar';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
 import Main from './Main'
+const Movie=Symbol('Movie')
+const Info=Symbol('Info')
+import InfoPage from './Info'
 class App extends React.Component<{}, {
-  open:boolean
+  open:boolean,
+  page:Symbol
 }> {
   constructor(props) {
     super(props)
     this.state= {
-      open:true
+      open:true,
+      page:Movie
     }
   }
-  toggleDrawer=()=>{
+  toggleDrawer=()=> {
     this.setState({
       open:!this.state.open
     })
   }
   render() {
+    const content=this.state.page===Movie?<Main open={this.state.open}/>:<InfoPage open={this.state.open}/>
     return (
       <div>
+        <Drawer 
+          open={this.state.open} 
+          docked={true}
+          width={260}
+        >
+          <div className="drawer-title">
+            华工电影院
+          </div>
+          <MenuItem onTouchTap={()=>{this.setState({page:Info})}}>我的信息</MenuItem>
+          <MenuItem onTouchTap={()=>{this.setState({page:Movie})}}>订票</MenuItem>
+          <MenuItem onTouchTap={this.toggleDrawer}>关闭抽屉</MenuItem>
+        </Drawer>
         <AppBar
           className="app-bar"
           style={{
@@ -31,18 +49,7 @@ class App extends React.Component<{}, {
           iconClassNameRight="muidocs-icon-navigation-expand-more"
           onLeftIconButtonTouchTap={this.toggleDrawer}
         />
-        <Main/>
-        <Drawer 
-          open={true} 
-          docked={true}
-          width={260}
-        >
-          <div className="drawer-title">
-            华工电影院
-          </div>
-          <MenuItem>我的信息</MenuItem>
-          <MenuItem onTouchTap={this.toggleDrawer}>返回</MenuItem>
-        </Drawer>
+        {content}
       </div>
     );
   }
