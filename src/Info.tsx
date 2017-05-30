@@ -28,7 +28,18 @@ class Info extends React.Component<{
         }
 		}
 		haveBought=(movie:MovieData)=>this.props.AppState.moviesBuy.includes(movie)
+    seat=(value:MovieData)=>{
+      const seat=this.props.AppState.moviesStatus.get(value)
+      const data=[]
+      seat.forEach((value1,index1)=>{
+        value1.forEach((value2,index2)=>{
+          value2 && data.push(<div key={index1*10+index2} style={{margin:'0 8px'}}>{`第${index1+1}排  第${index2+1}座`}</div>)
+        })
+      })
+      return <div className="line">{data}</div>
+    }
 		render(){
+        console.log(this.props.AppState)
 				return(
 						<div className="main" style={{margin:`0 0 0 ${this.props.open?260:0}px`}}>
 								<div className="main-content">
@@ -59,6 +70,9 @@ class Info extends React.Component<{
 																textStyle={{paddingRight:'60px'}}
 																subtitleStyle={{marginTop:"8px"}}
 																/>
+                                <CardText>
+																		{this.seat(value)}
+																</CardText>
 																<CardTitle expandable={true} title={value.director} subtitle={value.actor} />
 																<CardText expandable={true}>
 																		{value.content}

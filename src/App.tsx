@@ -9,13 +9,35 @@ const Info=Symbol('Info')
 import InfoPage from './Info'
 class App extends React.Component<{}, {
   open:boolean,
+  docked:boolean
   page:Symbol
 }> {
   constructor(props) {
     super(props)
     this.state= {
       open:true,
-      page:Movie
+      page:Movie,
+      docked:false
+    }
+  }
+  componentDidMount(){
+    let size=()=>{
+      if(document.body.offsetWidth<=600) {
+        console.log('543')
+        this.setState({
+          docked:false
+        })
+      }else{
+        console.log('123')
+        this.setState({
+          docked:true,
+          open:true
+        })
+      }
+    }
+    size()
+    window.onresize=()=>{
+      size()
     }
   }
   toggleDrawer=()=> {
@@ -29,8 +51,9 @@ class App extends React.Component<{}, {
       <div>
         <Drawer 
           open={this.state.open} 
-          docked={true}
+          docked={this.state.docked}
           width={260}
+          onRequestChange={(open) => this.setState({open})}
         >
           <div className="drawer-title">
             华工电影院

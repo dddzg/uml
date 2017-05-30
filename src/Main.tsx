@@ -5,7 +5,10 @@ import {MovieData} from './data'
 import RaisedButton from 'material-ui/RaisedButton'
 import {inject,observer} from 'mobx-react'
 import {AppState} from './AppState' 
+import Dialog from 'material-ui/Dialog';
+import FlatButton from 'material-ui/FlatButton';
 import './Main.less'
+import Choose from './Choose'
 const Line=({first,second})=>(
 		<div className="line">
 				<div>{first}</div>
@@ -18,12 +21,14 @@ class Main extends React.Component<{
 	open:boolean,
 	AppState?:AppState
 },{
-  data?:MovieData[]
+  data?:MovieData[],
+  open?:boolean
 }> {
 		constructor(props:any) {
 				super(props);
         this.state={
-          data:this.props.AppState.movies
+          data:this.props.AppState.movies,
+          open:false
         }
 		}
 		handleInput=(_,input)=>{
@@ -77,15 +82,31 @@ class Main extends React.Component<{
 																</CardText>
 																<CardActions expandable={true}>
 																		<RaisedButton 
-                                    disabled={this.haveBought(value)}
-                                    label={this.haveBought(value)?"你已经买了啦":"买买买"}
+                                    label={"买买买"}
                                     onTouchTap={()=>{
-                                      this.props.AppState.buy(value) && this.forceUpdate()
+                                      this.props.AppState.WantTobuy(value)
+                                      this.setState({
+                                        open:true
+                                      })
                                     }}/>
 																</CardActions>
 														</Card>
 												))
 										}
+                    <Dialog
+                    title="客官来选座啦！"
+                    open={this.state.open}
+                    onRequestClose={()=>{this.setState({open:false})}}
+                    actions={[
+                      // tslint:disable-next-line:jsx-wrap-multiline
+                      <FlatButton
+                        label="Ok"
+                        primary={true}
+                        onTouchTap={()=>{this.setState({open:false})}}
+                      />
+                    ]}>
+                      <Choose/>
+                    </Dialog>
                     </div>
 								</div>
 						</div>
