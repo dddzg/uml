@@ -4,13 +4,14 @@ import AppBar from 'material-ui/AppBar';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
 import Main from './Main'
-const Movie=Symbol('Movie')
-const Info=Symbol('Info')
+const Movie='Movie'
+const Info='Info'
 import InfoPage from './Info'
+
 class App extends React.Component<{}, {
   open:boolean,
   docked:boolean
-  page:Symbol
+  page:string
 }> {
   constructor(props) {
     super(props)
